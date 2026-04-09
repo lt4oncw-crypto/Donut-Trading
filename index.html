@@ -14,7 +14,7 @@
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar glass">
+    <nav class="navbar">
         <div class="container">
             <div class="logo">
                 <span class="logo-pink">Donut</span><span>SMP</span>
@@ -22,6 +22,7 @@
             <ul class="nav-links">
                 <li><a href="#hero">Home</a></li>
                 <li><a href="#community">Community</a></li>
+                <li><a href="#stats">Stats</a></li>
             </ul>
         </div>
     </nav>
@@ -30,46 +31,70 @@
     <header id="hero" class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1 class="reveal-text">Master the Market on <span class="text-gradient">Donut SMP</span></h1>
-                <p class="reveal-text delay-1">The ultimate trading hub for elite players. Join the Discord to start trading and support the owner on TikTok!</p>
-                <div class="hero-btns reveal-text delay-2">
-                    <a href="https://discord.gg/5N67eA8dtx" target="_blank" class="btn btn-primary glass-btn">
+                <h1 class="reveal">Master the Market on <span class="text-gradient">Donut SMP</span></h1>
+                <p class="reveal delay-1">The ultimate trading hub for elite players. Join the Discord to start trading and support the owner on TikTok!</p>
+                <div class="hero-btns reveal delay-2">
+                    <a href="https://discord.gg/5N67eA8dtx" target="_blank" class="btn btn-primary">
                         <i data-lucide="message-circle"></i> Join Discord
                     </a>
-                    <a href="https://www.tiktok.com/@leon_streamzz" target="_blank" class="btn btn-secondary glass-btn">
+                    <a href="https://www.tiktok.com/@leon_streamzz" target="_blank" class="btn btn-secondary">
                         <i data-lucide="video"></i> Follow TikTok
                     </a>
                 </div>
             </div>
-            <div class="hero-image reveal-image">
+            <div class="hero-image reveal delay-1">
                 <img src="donut_final.png" alt="Donut SMP Hero" class="floating">
             </div>
         </div>
     </header>
 
+    <!-- Stats Section -->
+    <section id="stats" class="stats glass">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item reveal">
+                    <h2>50,000+</h2>
+                    <p>Total Trades</p>
+                </div>
+                <div class="stat-item reveal delay-1">
+                    <h2>25,000+</h2>
+                    <p>Active Players</p>
+                </div>
+                <div class="stat-item reveal delay-2">
+                    <h2>1,500+</h2>
+                    <p>Online Now</p>
+                </div>
+                <div class="stat-item reveal delay-3">
+                    <h2>100%</h2>
+                    <p>Safe Trading</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Community Section -->
     <section id="community" class="community">
         <div class="container">
-            <h2 class="section-title">Support the <span class="text-gradient">SMP</span></h2>
+            <h2 class="section-title reveal">Support the <span class="text-gradient">SMP</span></h2>
             <div class="community-grid">
                 <!-- Discord Card -->
-                <div class="community-card glass reveal-card">
+                <div class="community-card glass reveal">
                     <div class="card-icon discord-icon">
                         <i data-lucide="message-circle"></i>
                     </div>
                     <h3>Join the Discord</h3>
                     <p>Get access to exclusive trades, giveaways, and the best deals on the server.</p>
-                    <a href="https://discord.gg/5N67eA8dtx" target="_blank" class="btn btn-small">Enter Discord</a>
+                    <a href="https://discord.gg/5N67eA8dtx" target="_blank" class="btn btn-primary" style="justify-content: center;">Enter Discord</a>
                     <div class="card-stat">Live Traders: 1,402+</div>
                 </div>
                 <!-- TikTok Card -->
-                <div class="community-card glass reveal-card">
+                <div class="community-card glass reveal delay-1">
                     <div class="card-icon tiktok-icon">
                         <i data-lucide="heart"></i>
                     </div>
                     <h3>Like Top Videos</h3>
                     <p>Support the owner by dropping a like on the latest TikTok videos!</p>
-                    <a href="https://www.tiktok.com/@leon_streamzz" target="_blank" class="btn btn-small">View TikTok</a>
+                    <a href="https://www.tiktok.com/@leon_streamzz" target="_blank" class="btn btn-secondary" style="justify-content: center; border-color: var(--primary); color: var(--primary);">View TikTok</a>
                     <div class="card-stat">Recent Likes: 2.1k+</div>
                 </div>
             </div>
@@ -80,12 +105,17 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-links">
+                <a href="#hero">Home</a>
                 <a href="https://discord.gg/5N67eA8dtx" target="_blank">Discord</a>
                 <a href="https://www.tiktok.com/@leon_streamzz" target="_blank">TikTok</a>
             </div>
             <p class="credit">made by duccky1</p>
         </div>
     </footer>
+
+    <!-- Decorative Elements -->
+    <div class="decor-glow" style="top: 20%; left: 10%;"></div>
+    <div class="decor-glow" style="top: 60%; right: 5%; width: 300px; height: 300px; background: var(--secondary); opacity: 0.1;"></div>
 
     <!-- Scripts -->
     <script src="script.js"></script>

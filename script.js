@@ -1,54 +1,95 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Scroll Reveal Animation
+    // Navbar Scroll Effect
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Intersection Observer for Reveal Animations
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
-                observer.unobserve(entry.target);
+                if (entry.target.classList.contains('stat-item')) {
+                    animateValue(entry.target.querySelector('h2'));
+                }
+                revealObserver.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Target elements for animation
-    const revealElements = document.querySelectorAll('.reveal-text, .reveal-card, .reveal-image');
-    revealElements.forEach(el => {
-        el.classList.add('reveal-hidden');
-        observer.observe(el);
-    });
+    const revealElements = document.querySelectorAll('.reveal');
+    revealElements.forEach(el => revealObserver.observe(el));
 
-    // Add dynamic hover effect to glass cards
-    const glassCards = document.querySelectorAll('.glass');
-    glassCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const { left, top, width, height } = card.getBoundingClientRect();
-            const x = (e.clientX - left) / width;
-            const y = (e.clientY - top) / height;
+    // Magnetic Button Effect
+    const magneticBtns = document.querySelectorAll('.btn');
+    magneticBtns.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const { left, top, width, height } = btn.getBoundingClientRect();
+            const x = e.clientX - left - width / 2;
+            const y = e.clientY - top - height / 2;
             
-            card.style.setProperty('--mouse-x', `${x * 100}%`);
-            card.style.setProperty('--mouse-y', `${y * 100}%`);
+            btn.style.transform = `translate(${x * 0.3}px, ${y * 0.5}px)`;
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = `translate(0px, 0px)`;
         });
     });
-});
 
-// CSS for reveal effect (added dynamically or can stay in style.css)
-const style = document.createElement('style');
-style.textContent = `
-    .reveal-hidden {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    // 3D Tilt Effect for Cards
+    const cards = document.querySelectorAll('.community-card');
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const { left, top, width, height } = card.getBoundingClientRect();
+            const x = (e.clientX - left) / width - 0.5;
+            const y = (e.clientY - top) / height - 0.5;
+            
+            card.style.transform = `
+                perspective(1000px) 
+                rotateY(${x * 10}deg) 
+                rotateX(${-y * 10}deg) 
+                translateY(-10px)
+            `;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(0px)`;
+        });
+    });
+
+    // Stats Counter Animation
+    function animateValue(obj) {
+        const text = obj.innerText;
+        const target = parseInt(text.replace(/[,+]/g, ''));
+        const suffix = text.replace(/[0-9,]/g, '');
+        let start = 0;
+        const duration = 2000;
+        const startTime = performance.now();
+
+        function update(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Ease out cubic
+            const ease = 1 - Math.pow(1 - progress, 3);
+            const current = Math.floor(ease * target);
+            
+            obj.innerText = current.toLocaleString() + suffix;
+            
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            }
+        }
+        requestAnimationFrame(update);
     }
-    .reveal-hidden.active {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    .delay-1 { transition-delay: 0.2s; }
-    .delay-2 { transition-delay: 0.4s; }
-    .delay-3 { transition-delay: 0.6s; }
-`;
-document.head.appendChild(style);
+});
