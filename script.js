@@ -169,4 +169,116 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         requestAnimationFrame(update);
     }
+
+    // --- 4. NEW: Mobile Menu ---
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.setAttribute('data-lucide', 'x');
+            } else {
+                icon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        });
+        
+        // Close menu on link click
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.querySelector('i').setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
+    }
+
+    // --- 5. NEW: Marketplace & Modal ---
+    const tradeModal = document.getElementById('trade-modal');
+    const closeModal = document.getElementById('close-modal');
+    const itemNameEl = document.getElementById('item-name');
+    
+    document.querySelectorAll('.open-trade').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const itemName = btn.getAttribute('data-item');
+            itemNameEl.innerText = itemName;
+            tradeModal.classList.add('active');
+        });
+    });
+
+    if (closeModal) {
+        closeModal.addEventListener('click', () => {
+            tradeModal.classList.remove('active');
+        });
+    }
+
+    // Close on outside click
+    window.addEventListener('click', (e) => {
+        if (e.target === tradeModal) tradeModal.classList.remove('active');
+    });
+
+    // --- 6. NEW: FAQ Accordion ---
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            faqItems.forEach(el => el.classList.remove('active'));
+            if (!isActive) item.classList.add('active');
+        });
+    });
+
+    // --- 7. NEW: Parallax Particles ---
+    const createParticle = () => {
+        const particle = document.createElement('div');
+        particle.className = 'particle glass';
+        
+        // Random size and position
+        const size = Math.random() * 60 + 20;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.borderRadius = '50%';
+        particle.style.left = `${Math.random() * 100}vw`;
+        particle.style.top = `${Math.random() * 100}vh`;
+        
+        // Random color variant
+        const colors = ['var(--primary)', 'var(--secondary)', 'var(--accent)'];
+        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+        
+        document.body.appendChild(particle);
+        
+        // Movement logic
+        let posX = parseFloat(particle.style.left);
+        let posY = parseFloat(particle.style.top);
+        let velX = (Math.random() - 0.5) * 0.5;
+        let velY = (Math.random() - 0.5) * 0.5;
+        
+        const move = () => {
+            posX += velX;
+            posY += velY;
+            
+            // Mouse Parallax factor
+            const moveX = (cursorX - window.innerWidth / 2) * 0.02;
+            const moveY = (cursorY - window.innerHeight / 2) * 0.02;
+            
+            particle.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            particle.style.left = `${posX}vw`;
+            particle.style.top = `${posY}vh`;
+            
+            // Boundary wrap
+            if (posX < -10) posX = 110;
+            if (posX > 110) posX = -10;
+            if (posY < -10) posY = 110;
+            if (posY > 110) posY = -10;
+            
+            requestAnimationFrame(move);
+        };
+        move();
+    };
+
+    for (let i = 0; i < 15; i++) {
+        createParticle();
+    }
 });
